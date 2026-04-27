@@ -222,33 +222,44 @@ section { padding: 7rem 3rem; position: relative; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .portrait {
   position: relative; width: 100%; height: 100%; border-radius: 24px; overflow: hidden;
-  background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(168,85,247,0.35), transparent 70%),
+    radial-gradient(ellipse 80% 50% at 50% 90%, rgba(236,72,153,0.25), transparent 70%),
+    linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 50%, #1a1a2e 100%);
   border: 1px solid var(--border-strong);
+  display: grid; place-items: center;
   isolation: isolate;
 }
 .portrait img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center top;
-  /* Tint the photo toward the portfolio palette and slightly desaturate the busy outdoor scene */
-  filter: saturate(0.78) contrast(1.05) brightness(0.92);
-  /* Soft radial mask: keep the subject crisp, fade the edges/background into the page */
-  -webkit-mask-image: radial-gradient(ellipse 85% 95% at 50% 42%, #000 45%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,0.35) 88%, transparent 100%);
-          mask-image: radial-gradient(ellipse 85% 95% at 50% 42%, #000 45%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,0.35) 88%, transparent 100%);
+  width: 88%; height: auto; max-height: 90%; object-fit: contain; object-position: center;
+  position: relative; z-index: 2;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4)) drop-shadow(0 0 30px rgba(168,85,247,0.2));
+  animation: floatMemoji 4s ease-in-out infinite;
 }
-/* Color wash that blends the photo into the purple/pink theme */
+@keyframes floatMemoji {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+/* Glowing aura behind the memoji */
 .portrait::before {
-  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(168,85,247,0.22), transparent 55%),
-    radial-gradient(ellipse at 80% 90%, rgba(236,72,153,0.18), transparent 60%),
-    linear-gradient(180deg, transparent 55%, rgba(10,10,15,0.55) 100%);
-  mix-blend-mode: soft-light;
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: 70%; height: 70%; transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(236,72,153,0.2) 40%, transparent 70%);
+  filter: blur(40px); z-index: 1; pointer-events: none;
+  animation: pulseGlow 4s ease-in-out infinite;
 }
-/* Bottom fade so the photo dissolves into the background instead of cutting off hard */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+/* Decorative grid pattern */
 .portrait::after {
-  content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background:
-    linear-gradient(180deg, transparent 60%, rgba(10,10,15,0.45) 88%, rgba(10,10,15,0.85) 100%),
-    radial-gradient(ellipse 100% 60% at 50% 100%, rgba(10,10,15,0.55), transparent 70%);
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
 }
 .portrait-placeholder {
   position: absolute; inset: 0; display: grid; place-items: center;
