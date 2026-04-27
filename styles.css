@@ -606,6 +606,21 @@ section { padding: 7rem 3rem; position: relative; }
   background: radial-gradient(ellipse at center, rgba(168,85,247,0.15), transparent 70%);
   z-index: -1;
 }
+.contact-memoji {
+  position: relative; width: 160px; height: 160px; margin: 0 auto 1.5rem;
+  display: grid; place-items: center;
+}
+.contact-memoji img {
+  position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain;
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,0.4)) drop-shadow(0 0 25px rgba(168,85,247,0.25));
+  animation: floatMemoji 4s ease-in-out infinite;
+}
+.contact-memoji-glow {
+  position: absolute; inset: -10%; z-index: 1; pointer-events: none;
+  background: radial-gradient(circle, rgba(168,85,247,0.45) 0%, rgba(236,72,153,0.25) 45%, transparent 70%);
+  filter: blur(35px);
+  animation: pulseGlow 4s ease-in-out infinite;
+}
 .contact-eyebrow {
   font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent);
   letter-spacing: 0.2em; display: block; margin-bottom: 1.2rem;
